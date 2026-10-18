@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>메인 | Company</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-body">
+<main class="auth-card menu-card">
+    <p class="eyebrow">MANAGEMENT SYSTEM</p>
+    <h1 class="auth-title">Company</h1>
+    <p class="auth-sub"><span id="managerName">-</span> 관리자 · <span id="dayValue">-</span>일차 · 보유 <strong class="lob-text"><span id="lobValue">-</span> LOB</strong></p>
+
+    <!-- 하루 흐름: 괴물 선택 → 직원 고용 → 업무 (지금 단계가 강조됨) -->
+    <ol class="phase-steps" id="phaseSteps">
+        <li data-phase="MONSTER">괴물 선택</li>
+        <li data-phase="HIRE">직원 고용</li>
+        <li data-phase="WORK">업무</li>
+    </ol>
+
+    <!-- 에너지 할당량 (업무 단계에서 채움) -->
+    <div class="energy-box">
+        <div class="energy-head"><span>오늘의 에너지</span><strong><span id="energyNow">-</span> / <span id="energyMax">-</span></strong></div>
+        <div class="progress"><i id="energyBar"></i></div>
+    </div>
+
+    <div class="alert" id="homeError" hidden></div>
+
+    <nav class="menu">
+        <!-- 단계마다 하나의 버튼만 열림 — 아래 스크립트가 phase 값을 보고 잠그거나 풂 -->
+        <button type="button" class="btn btn-block btn-lg" id="startBtn" hidden>게임 시작하기</button>
+        <a class="btn btn-block btn-lg" id="monsterBtn" th:href="@{/monster}">괴물 선택</a>
+        <a class="btn btn-block btn-lg" id="hireBtn" th:href="@{/hire}">직원 고용</a>
+        <button type="button" class="btn btn-block btn-lg" id="operateBtn">준비 완료 · 업무 시작</button>
+        <a class="btn btn-block btn-lg" id="workBtn" th:href="@{/work}">작업 지시</a>
+        <button type="button" class="btn btn-block btn-lg" id="dayBtn">다음 날로 넘어가기</button>
+
+        <!-- csrf가 꺼져 있어서 POST /logout 만으로 로그아웃됨 -->
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="btn btn-ghost btn-block btn-lg">로그아웃</button>
+        </form>
+    </nav>
+</main>
+<script th:src="@{/js/home.js}"></script>
+</body>
+</html>

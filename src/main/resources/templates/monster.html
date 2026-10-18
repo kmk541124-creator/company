@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>괴물 선택 | Company</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="topbar">
+    <!-- 메인 화면으로 돌아가기 -->
+    <a class="btn btn-ghost" th:href="@{/}">← 메인으로</a>
+</header>
+
+<main class="container">
+    <section class="panel">
+        <div class="panel-head">
+            <h2>괴물 선택</h2>
+            <p>준비 1단계 · 오늘 시설에 수용할 괴물을 하나 고르세요. 고르면 나머지 후보는 사라지고 직원 고용으로 넘어갑니다.</p>
+        </div>
+
+        <!-- 선택 결과 / 오류 메시지 -->
+        <div class="alert" id="monsterError" hidden></div>
+        <div class="notice" id="monsterOk" hidden></div>
+
+        <!-- 후보가 없을 때 -->
+        <div class="empty" id="emptyChoice" hidden>지금 선택할 수 있는 괴물 후보가 없습니다.</div>
+
+        <!-- 괴물 후보 카드는 monster.js가 /api/choice 결과로 그려줌 -->
+        <div class="monster-grid" id="choiceList"></div>
+    </section>
+</main>
+
+<script th:src="@{/js/monster.js}"></script>
+</body>
+</html>

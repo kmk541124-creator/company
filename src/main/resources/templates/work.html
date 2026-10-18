@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>작업 | Company</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="topbar">
+    <!-- 메인 화면으로 돌아가기 -->
+    <a class="btn btn-ghost" th:href="@{/}">← 메인으로</a>
+    <span class="lob-chip"><span class="lob-label">DAY</span> <strong id="dayValue">-</strong></span>
+</header>
+
+<main class="container">
+    <!-- ===== 오늘의 에너지 할당량 + 다음 날 버튼 ===== -->
+    <section class="panel">
+        <div class="panel-head">
+            <h2>오늘의 에너지</h2>
+            <p>작업에 성공할 때마다 에너지가 1씩 생산됩니다. 할당량을 다 채우고 진행 중인 작업이 없으면 다음 날로 넘어갈 수 있습니다.</p>
+        </div>
+        <div class="energy-head big"><span>모은 에너지</span><strong><span id="energyNow">-</span> / <span id="energyMax">-</span></strong></div>
+        <div class="progress progress-lg"><i id="energyBar"></i></div>
+        <div class="alert" id="dayError" hidden></div>
+        <div class="actions">
+            <button class="btn" id="dayBtn" type="button" disabled>다음 날로 넘어가기</button>
+        </div>
+    </section>
+
+    <!-- ===== 작업 지시 ===== -->
+    <section class="panel">
+        <div class="panel-head">
+            <h2>작업 지시</h2>
+            <p>괴물과 직원, 작업 종류를 고른 뒤 작업을 시작하세요. 작업 중인 괴물과 직원은 끝날 때까지 고를 수 없습니다.</p>
+        </div>
+
+        <!-- 1단계: 괴물 선택 (work.js가 카드로 그려줌) -->
+        <div class="step-title"><span class="step-num">1</span> 괴물 선택</div>
+        <div class="alert" id="monsterError" hidden></div>
+        <div class="empty" id="emptyMonster" hidden>수용 중인 괴물이 없습니다.</div>
+        <div class="pick-grid" id="monsterList"></div>
+
+        <!-- 2단계: 직원 선택 -->
+        <div class="step-title"><span class="step-num">2</span> 직원 선택</div>
+        <div class="alert" id="workerError" hidden></div>
+        <div class="empty" id="emptyWorker" hidden>고용한 직원이 없습니다.</div>
+        <div class="pick-grid" id="workerList"></div>
+
+        <!-- 3단계: 작업 종류 선택 (선택한 괴물의 성공 확률이 함께 표시됨) -->
+        <div class="step-title"><span class="step-num">3</span> 작업 종류</div>
+        <div class="type-grid" id="typeList"></div>
+
+        <!-- 선택 요약 + 시작 버튼 -->
+        <div class="summary">
+            <div><span>괴물</span><strong id="sumMonster">-</strong></div>
+            <div><span>직원</span><strong id="sumWorker">-</strong></div>
+            <div><span>작업 / 성공 확률</span><strong id="sumType">-</strong></div>
+        </div>
+
+        <div class="alert" id="workError" hidden></div>
+        <div class="actions">
+            <button class="btn btn-primary" id="startBtn" type="button" disabled>작업 시작</button>
+        </div>
+    </section>
+
+    <!-- ===== 진행 중 / 끝난 작업 (0.5초마다 실시간 갱신) ===== -->
+    <section class="panel">
+        <div class="panel-head">
+            <h2>작업 현황 <span class="count" id="runningCount">0</span></h2>
+            <p>성공·실패 횟수, 직원 체력, 생산 중인 에너지가 실시간으로 바뀝니다.</p>
+        </div>
+        <div class="empty" id="emptyRun">진행 중인 작업이 없습니다.</div>
+        <div class="run-list" id="runList"></div>
+    </section>
+</main>
+
+<script th:src="@{/js/work.js}"></script>
+</body>
+</html>

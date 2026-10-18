@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>회원가입 | Company</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-body">
+<main class="auth-card">
+    <p class="eyebrow">NEW MANAGER</p>
+    <h1 class="auth-title">회원가입</h1>
+    <p class="auth-sub">가입하면 시작 자금으로 <strong>100 LOB</strong>이 지급됩니다.</p>
+
+    <!-- 아이디가 이미 있으면 /singup?duplicate 로 돌아옴 -->
+    <div class="alert" th:if="${param.duplicate}">이미 사용 중인 아이디입니다.</div>
+
+    <!-- UserApiController의 POST /user 로 전송 → 가입 후 /login 으로 이동 -->
+    <form th:action="@{/user}" method="post" class="form" id="signupForm">
+        <label class="field">
+            <span>아이디</span>
+            <input type="text" name="username" autocomplete="username" required autofocus>
+        </label>
+        <label class="field">
+            <span>비밀번호</span>
+            <input type="password" name="password" id="pw" autocomplete="new-password" required>
+        </label>
+        <label class="field">
+            <span>비밀번호 확인</span>
+            <input type="password" id="pwCheck" autocomplete="new-password" required>
+        </label>
+        <div class="alert" id="pwError" hidden>비밀번호가 서로 다릅니다.</div>
+        <button type="submit" class="btn btn-primary btn-block">가입하기</button>
+    </form>
+
+    <p class="auth-switch">이미 계정이 있으신가요? <a th:href="@{/login}">로그인</a></p>
+</main>
+<script>
+    // 비밀번호 확인 칸이 다르면 전송을 막음 (pwCheck는 name이 없어서 서버로 가지 않음)
+    document.getElementById('signupForm').addEventListener('submit', (e) => {
+        const same = document.getElementById('pw').value === document.getElementById('pwCheck').value;
+        document.getElementById('pwError').hidden = same;
+        if (!same) e.preventDefault();
+    });
+</script>
+</body>
+</html>

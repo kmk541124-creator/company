@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>로그인 | Company</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-body">
+<main class="auth-card">
+    <p class="eyebrow">MANAGEMENT SYSTEM</p>
+    <h1 class="auth-title">Company</h1>
+    <p class="auth-sub">관리자 인증이 필요합니다.</p>
+
+    <!-- 로그인 실패 시 Spring Security가 /login?error 로 돌려보냄 -->
+    <div class="alert" th:if="${param.error}">아이디 또는 비밀번호가 올바르지 않습니다.</div>
+    <!-- 로그아웃 후 /login?logout -->
+    <div class="notice" th:if="${param.logout}">로그아웃되었습니다.</div>
+
+    <!-- Spring Security의 formLogin이 POST /login 을 처리함 -->
+    <form th:action="@{/login}" method="post" class="form">
+        <label class="field">
+            <span>아이디</span>
+            <input type="text" name="username" autocomplete="username" required autofocus>
+        </label>
+        <label class="field">
+            <span>비밀번호</span>
+            <input type="password" name="password" autocomplete="current-password" required>
+        </label>
+        <button type="submit" class="btn btn-primary btn-block">로그인</button>
+    </form>
+
+    <p class="auth-switch">계정이 없으신가요? <a th:href="@{/singup}">회원가입</a></p>
+</main>
+</body>
+</html>

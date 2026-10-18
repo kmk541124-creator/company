@@ -29,7 +29,9 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 "/login",
                                 "/singup",
-                                "/user"
+                                "/user",
+                                "/css/**",
+                                "/js/**"
                         ).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin

@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### 로컬 파일 ###
+.DS_Store
+company_src.tgz
